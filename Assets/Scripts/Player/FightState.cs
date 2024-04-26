@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class FightState : PlayerStates
 {
@@ -32,6 +33,11 @@ public class FightState : PlayerStates
     Vector3 lookAtRotation = _controller.Enemy.transform.position - _controller.Transform.position;
     Quaternion rotation = Quaternion.LookRotation(lookAtRotation, Vector3.up);
     _controller.Transform.rotation = rotation;
+  }
+
+  public void Attack()
+  {
+
   }
 }
 
