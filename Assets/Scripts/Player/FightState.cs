@@ -7,7 +7,7 @@ public class FightState : PlayerStates
 
   public override void Exit()
   {
-    
+    _controller.AnimatorEventInvoker.OnShoot -= Attack;
   }
 
   public override void Start(PlayerMoveController playerController)
@@ -15,6 +15,7 @@ public class FightState : PlayerStates
     Debug.Log("Set Fight State");
 
     _controller = playerController;
+    _controller.AnimatorEventInvoker.OnShoot += Attack;
   }
 
   public override void Update()
@@ -37,7 +38,8 @@ public class FightState : PlayerStates
 
   public void Attack()
   {
-
+    var projectile = GameObject.Instantiate(_controller.Projectile, _controller.ProjectileSpawnPoint.position, _controller.ProjectileSpawnPoint.rotation);
+    projectile.Init(_controller.ProjectileSpawnPoint.position, _controller.Enemy.transform.position);
   }
 }
 

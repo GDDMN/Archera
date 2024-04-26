@@ -5,6 +5,7 @@ using UnityEngine;
 [Serializable]
 public struct PlayerData
 {
+  public int health;
   public float speed;
   public States playerState;
   public Vector2 moveDirection;
@@ -18,13 +19,21 @@ public class PlayerMoveController : MonoBehaviour
   private PlayerStates[] AllStates = new PlayerStates[3];
   
   [SerializeField] private PlayerData _playerData;
-  [SerializeField] private Animator animationController;
+  [SerializeField] private Animator _animationController;
   [SerializeField] private EnemyController _enemy;
+  [SerializeField] private AnimatorEventInvoker _animatorEventInvoker;
+ 
+  [SerializeField] private Transform _projectileSpawnPoint;
+  [SerializeField] private Projectile _projectile;
 
   public Transform Transform => gameObject.transform;
   public float Speed => _playerData.speed;
   public Vector2 Direction => _playerData.moveDirection;
   public EnemyController Enemy => _enemy;
+  public Transform ProjectileSpawnPoint => _projectileSpawnPoint;
+  public AnimatorEventInvoker AnimatorEventInvoker => _animatorEventInvoker;
+  public Projectile Projectile => _projectile;
+
 
   private void Awake()
   {
@@ -71,7 +80,7 @@ public class PlayerMoveController : MonoBehaviour
 
   private void SetAnimation()
   {
-    animationController.SetInteger("AnimType", (int)_playerData.playerState);
+    _animationController.SetInteger("AnimType", (int)_playerData.playerState);
   }
 
   public void SetState(States state)
