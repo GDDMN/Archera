@@ -6,7 +6,7 @@ public class FightState : PlayerStates
 
   public override void Exit()
   {
-    _controller.SetState(States.IDLE);
+    
   }
 
   public override void Start(PlayerMoveController playerController)
@@ -19,11 +19,19 @@ public class FightState : PlayerStates
   public override void Update()
   {
     RotateToEnemy();
+
+    if (_controller.Enemy == null)
+      _controller.SetState(States.IDLE);
   }
 
   private void RotateToEnemy()
   {
+    if (_controller.Enemy == null)
+      return;
 
+    Vector3 lookAtRotation = _controller.Enemy.transform.position - _controller.Transform.position;
+    Quaternion rotation = Quaternion.LookRotation(lookAtRotation, Vector3.up);
+    _controller.Transform.rotation = rotation;
   }
 }
 

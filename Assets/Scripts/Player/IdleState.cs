@@ -16,6 +16,8 @@ public class IdleState : PlayerStates
 
   public override void Update()
   {
+    if (_controller.Enemy != null)
+      _controller.SetState(States.FIGHT);
 
   }
 }

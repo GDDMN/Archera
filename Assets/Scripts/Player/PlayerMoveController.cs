@@ -19,17 +19,16 @@ public class PlayerMoveController : MonoBehaviour
   
   [SerializeField] private PlayerData _playerData;
   [SerializeField] private Animator animationController;
+  [SerializeField] private EnemyController _enemy;
 
   public Transform Transform => gameObject.transform;
   public float Speed => _playerData.speed;
   public Vector2 Direction => _playerData.moveDirection;
+  public EnemyController Enemy => _enemy;
 
   private void Awake()
   {
     inputControls = new Controls();
-    inputControls.Player.Move.started += context => SetState(States.RUN);
-    inputControls.Player.Move.canceled += context => SetState(States.IDLE);
-
     InitializeStates();
     ActiveState.Start(this);
   }
@@ -49,11 +48,17 @@ public class PlayerMoveController : MonoBehaviour
 
   private void OnEnable()
   {
+    inputControls.Player.Move.started += context => SetState(States.RUN);
+    inputControls.Player.Move.canceled += context => SetState(States.IDLE);
+
     inputControls.Enable();
   }
 
   private void OnDisable()
   {
+    inputControls.Player.Move.started -= context => SetState(States.RUN);
+    inputControls.Player.Move.canceled -= context => SetState(States.IDLE);
+
     inputControls.Disable();
   }
 
