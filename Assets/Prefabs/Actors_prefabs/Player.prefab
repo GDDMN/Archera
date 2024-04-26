@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2918541966435344861}
+  - component: {fileID: 871323514399551350}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -32,6 +33,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &871323514399551350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2918541966435344858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449868041dc294546bc4c8da7e9d23ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationController: {fileID: 8784882252629334151}
+  _playerData:
+    speed: 3
+    isRunning: 0
+    moveDirection: {x: 0, y: 0}
 --- !u!1001 &2918541967020942614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -242,5 +260,10 @@ PrefabInstance:
 --- !u!4 &3389529408156402429 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7034a260c15bef845bbe4d46150ce991, type: 3}
+  m_PrefabInstance: {fileID: 2918541967020942614}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8784882252629334151 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 7034a260c15bef845bbe4d46150ce991, type: 3}
   m_PrefabInstance: {fileID: 2918541967020942614}
   m_PrefabAsset: {fileID: 0}

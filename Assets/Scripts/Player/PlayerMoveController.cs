@@ -6,27 +6,46 @@ using UnityEngine;
 public struct PlayerData
 {
   public float speed;
-  public bool isRunning;
+  public States playerState;
+  public Vector2 moveDirection;
 }
 
 
 public class PlayerMoveController : MonoBehaviour
 {
   private Controls inputControls;
+  private PlayerStates ActiveState;
+  private PlayerStates[] AllStates = new PlayerStates[3];
   
   [SerializeField] private Animator animationController;
-  [SerializeField] private PlayerData _playerData;
-  
-  private PlayerStates ActiveState;
-  private PlayerStates[] AllStates = new PlayerStates[2];
 
+  private PlayerData _playerData;
   public Controls InputControls => inputControls;
+  public Transform Transform => gameObject.transform;
+  public float Speed => _playerData.speed;
+  public Vector2 Direction => _playerData.moveDirection;
 
   private void Awake()
   {
     inputControls = new Controls();
+    inputControls.Player.Move.started += context => SetState(States.RUN);
+    inputControls.Player.Move.canceled += context => SetState(States.IDLE);
+
     InitializeStates();
-    ActiveState.Start(_playerData);
+    ActiveState.Start(this);
+  }
+
+  private void InitializeStates()
+  {
+    IdleState idleState = new IdleState();
+    RunState runState = new RunState();
+    FightState fightState = new FightState();
+
+    AllStates[(int)States.IDLE] = idleState;
+    AllStates[(int)States.RUN] = runState;
+    AllStates[(int)States.FIGHT] = fightState;
+
+    SetState((int)States.IDLE);
   }
 
   private void OnEnable()
@@ -41,53 +60,23 @@ public class PlayerMoveController : MonoBehaviour
 
   private void Update()
   {
+    _playerData.moveDirection = inputControls.Player.Move.ReadValue<Vector2>();
     ActiveState.Update();
-
-    Vector2 direction = inputControls.Player.Move.ReadValue<Vector2>();
-
-    Move(direction);
-    Rotate(direction);
-
-    if (direction != Vector2.zero)
-      _playerData.isRunning = true;
-    else
-      _playerData.isRunning = false;
-
     SetAnimation();
-  }
-
-  private void Move(Vector2 direction)
-  {
-    float scaledMoveSpeed = _playerData.speed * Time.deltaTime;
-    Vector3 moveDirection = new Vector3(direction.x, 0, direction.y);
-    transform.position += moveDirection * scaledMoveSpeed;
-  }
-
-  private void Rotate(Vector2 direction)
-  {
-    if (direction == Vector2.zero)
-      return;
-
-    Vector3 moveDirection = new Vector3(direction.x, 0, direction.y);
-    Vector3 lookDirection = (transform.position + moveDirection) - transform.position;
-
-    Quaternion rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
-    transform.rotation = rotation;
   }
 
   private void SetAnimation()
   {
-    animationController.SetBool("Run", _playerData.isRunning);
+    animationController.SetInteger("AnimType", (int)_playerData.playerState);
   }
 
-  private void InitializeStates()
+  public void SetState(States state)
   {
-    IdleState idleState = new IdleState();
-    RunState runState = new RunState();
+    if(ActiveState != null)
+      ActiveState.Exit();
 
-    AllStates[(int)States.IDLE] = idleState;
-    AllStates[(int)States.RUN] = runState;
-
-    ActiveState = AllStates[(int)States.IDLE];
+    _playerData.playerState = state;
+    ActiveState = AllStates[(int)_playerData.playerState];
+    ActiveState.Start(this);
   }
 }

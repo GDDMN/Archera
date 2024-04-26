@@ -1,20 +1,27 @@
 ﻿using UnityEngine;
-public class IdleState : PlayerStates
+
+public class FightState : PlayerStates
 {
   private PlayerMoveController _controller;
 
   public override void Exit()
   {
+    _controller.SetState(States.IDLE);
   }
 
   public override void Start(PlayerMoveController playerController)
   {
-    Debug.Log("Set Idle State");
+    Debug.Log("Set Fight State");
 
     _controller = playerController;
   }
 
   public override void Update()
+  {
+    RotateToEnemy();
+  }
+
+  private void RotateToEnemy()
   {
 
   }

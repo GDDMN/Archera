@@ -1,5 +1,6 @@
 ﻿public enum States
 {
   IDLE,
-  RUN
+  RUN,
+  FIGHT
 }
