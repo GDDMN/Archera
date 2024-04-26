@@ -6,7 +6,6 @@ public class RunState : PlayerStates
 
   public override void Exit()
   {
-    _controller.SetState(States.IDLE);
   }
 
   public override void Start(PlayerMoveController playerController)

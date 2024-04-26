@@ -17,10 +17,9 @@ public class PlayerMoveController : MonoBehaviour
   private PlayerStates ActiveState;
   private PlayerStates[] AllStates = new PlayerStates[3];
   
+  [SerializeField] private PlayerData _playerData;
   [SerializeField] private Animator animationController;
 
-  private PlayerData _playerData;
-  public Controls InputControls => inputControls;
   public Transform Transform => gameObject.transform;
   public float Speed => _playerData.speed;
   public Vector2 Direction => _playerData.moveDirection;
