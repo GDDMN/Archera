@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -17,10 +18,13 @@ public class PlayerMoveController : MonoBehaviour
   private Controls inputControls;
   private PlayerStates ActiveState;
   private PlayerStates[] AllStates = new PlayerStates[3];
-  
+
+  [SerializeField] private List<EnemyController> _allEnemies = new List<EnemyController>();
+  [SerializeField] private EnemyController _enemy;
+
+
   [SerializeField] private PlayerData _playerData;
   [SerializeField] private Animator _animationController;
-  [SerializeField] private EnemyController _enemy;
   [SerializeField] private AnimatorEventInvoker _animatorEventInvoker;
  
   [SerializeField] private Transform _projectileSpawnPoint;
@@ -30,6 +34,7 @@ public class PlayerMoveController : MonoBehaviour
   public float Speed => _playerData.speed;
   public Vector2 Direction => _playerData.moveDirection;
   public EnemyController Enemy => _enemy;
+  public List<EnemyController> AllEnemies => _allEnemies;
   public Transform ProjectileSpawnPoint => _projectileSpawnPoint;
   public AnimatorEventInvoker AnimatorEventInvoker => _animatorEventInvoker;
   public Projectile Projectile => _projectile;
@@ -91,5 +96,10 @@ public class PlayerMoveController : MonoBehaviour
     _playerData.playerState = state;
     ActiveState = AllStates[(int)_playerData.playerState];
     ActiveState.Start(this);
+  }
+
+  public void SetEnemy(EnemyController enemy)
+  {
+    _enemy = enemy;
   }
 }
