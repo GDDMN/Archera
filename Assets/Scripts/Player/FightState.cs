@@ -39,7 +39,7 @@ public class FightState : PlayerStates
   public void Attack()
   {
     var projectile = GameObject.Instantiate(_controller.Projectile, _controller.ProjectileSpawnPoint.position, _controller.ProjectileSpawnPoint.rotation);
-    projectile.Init(_controller.ProjectileSpawnPoint.position, _controller.Enemy.transform.position);
+    projectile.Init(_controller.ProjectileSpawnPoint.position, _controller.Enemy.AttackPointPos);
   }
 }
 

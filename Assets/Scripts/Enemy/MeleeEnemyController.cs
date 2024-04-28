@@ -7,6 +7,7 @@ public class MeleeEnemyController : EnemyController
 {
   [SerializeField] private PlayerMoveController _player;
 
+
   private void Awake()
   {
     _navAgent = GetComponent<NavMeshAgent>();
