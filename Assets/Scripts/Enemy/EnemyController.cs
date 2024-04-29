@@ -9,7 +9,10 @@ public abstract class EnemyController : MonoBehaviour
 
   [SerializeField] protected Animator _animator;
   [SerializeField] protected Transform _attackPoint;
+  [SerializeField] protected PlayerMoveController _player;
 
+  public PlayerMoveController Player => _player;
   public Vector3 AttackPointPos => _attackPoint.position;
-
+  public Animator Animator => _animator;
+  public NavMeshAgent Agent => _navAgent;
 }

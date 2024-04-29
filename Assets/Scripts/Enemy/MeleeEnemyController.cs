@@ -5,25 +5,20 @@ using UnityEngine.AI;
 
 public class MeleeEnemyController : EnemyController
 {
-  [SerializeField] private PlayerMoveController _player;
+  private BaseEnemyBehaviour ActiveState;
 
 
   private void Awake()
   {
+    WalkEnemyBehaviour walk = new WalkEnemyBehaviour(this);
+    ActiveState = walk;
     _navAgent = GetComponent<NavMeshAgent>();
   }
 
   private void Update()
   {
-    FindWayToPlayer();
-    _animator.SetFloat("Speed", _navAgent.speed);
+    ActiveState.Tick();
   }
 
-  private void FindWayToPlayer()
-  {
-    if (_player == null)
-      return;
 
-    _navAgent.SetDestination(_player.Transform.position);
-  }
 }
