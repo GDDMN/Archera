@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c0129d9045053e49b35760b1e395251, type: 3}
   m_Name: WalkEnemyBehaviour
   m_EditorClassIdentifier: 
+  NextBehaviourNode: {fileID: 11400000, guid: 8d078d45f5c7b0e4889327c131d7875b, type: 2}

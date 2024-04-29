@@ -8,6 +8,7 @@ public class WalkEnemyBehaviour : BaseEnemyBehaviour
   public override void Start()
   {
     SetState(BehaviourState.ACTIVE);
+    _enemy.Animator.SetInteger("State", 1);
   }
 
   public override BehaviourState Tick()
@@ -20,14 +21,14 @@ public class WalkEnemyBehaviour : BaseEnemyBehaviour
 
   public override void Exit()
   {
-    
+    SetState(BehaviourState.COMPLETE);
   }
 
   private void FindWayToPlayer()
   {
     if (_enemy.Player == null)
     {
-      SetState(BehaviourState.COMPLETE);
+      SwitchState();
       return;
     }
 
