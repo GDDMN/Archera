@@ -1,10 +1,9 @@
-﻿public class IdleBehaviour : BaseEnemyBehaviour
-{
-  public IdleBehaviour(EnemyController enemy) : base(enemy)
-  {
-    
-  }
+﻿using UnityEngine;
 
+
+[CreateAssetMenu(fileName = "IdleBehaviour", menuName = "EnemyBehaviour/IdleBehaviour", order = 1)]
+public class IdleBehaviour : BaseEnemyBehaviour
+{
   public override void Exit()
   {
   }
@@ -13,8 +12,9 @@
   {
   }
 
-  public override void Tick()
+  public override BehaviourState Tick()
   {
+    return _state;
   }
 }
 

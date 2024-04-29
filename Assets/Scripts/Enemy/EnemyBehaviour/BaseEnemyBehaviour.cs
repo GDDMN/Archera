@@ -1,21 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseEnemyBehaviour 
+
+public abstract class BaseEnemyBehaviour : ScriptableObject
 {
   protected EnemyController _enemy;
+  protected BehaviourState _state;
 
-  public BaseEnemyBehaviour(EnemyController enemy)
+  [SerializeField] protected BaseEnemyBehaviour NextBehaviourNode;
+
+  public BehaviourState State => _state;
+
+  public void Initialize(EnemyController enemy)
   {
     _enemy = enemy;
   }
 
   public abstract void Start();
 
-  public abstract void Tick();
+  public abstract BehaviourState Tick();
 
   public abstract void Exit();
+
+  public void SetState(BehaviourState newState)
+  {
+    _state = newState;
+  }
 }
 
 
