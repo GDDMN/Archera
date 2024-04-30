@@ -1503,7 +1503,7 @@ PrefabInstance:
     - target: {fileID: 871323514399551350, guid: a73da700c35d4e84b8afae700a4e63af, type: 3}
       propertyPath: _allEnemies.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1498022795}
     - target: {fileID: 2918541966435344858, guid: a73da700c35d4e84b8afae700a4e63af, type: 3}
       propertyPath: m_Name
       value: Player

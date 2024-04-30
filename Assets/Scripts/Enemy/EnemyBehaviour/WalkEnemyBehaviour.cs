@@ -7,16 +7,15 @@ public class WalkEnemyBehaviour : BaseEnemyBehaviour
 
   public override void Start()
   {
+    _stateEnemy = EnemyStates.MOVING;
     SetState(BehaviourState.ACTIVE);
-    _enemy.Animator.SetInteger("State", 1);
+    _enemy.Animator.SetInteger("State", (int)_stateEnemy);
   }
 
   public override BehaviourState Tick()
   {
     FindWayToPlayer();
-    _enemy.Animator.SetFloat("Speed", _enemy.Animator.speed);
-
-    return _state;
+    return _behaviourState;
   }
 
   public override void Exit()
@@ -29,7 +28,7 @@ public class WalkEnemyBehaviour : BaseEnemyBehaviour
   {
     if (_enemy.Player == null)
     {
-      SwitchState();
+      Exit();
       return;
     }
 
@@ -38,8 +37,8 @@ public class WalkEnemyBehaviour : BaseEnemyBehaviour
     Vector3 distantion = _enemy.transform.position - _enemy.Player.Transform.position;
     float longDist = distantion.magnitude;
 
-    if (longDist <= 1f)
-      SwitchState();
+    if (longDist <= 3f)
+      Exit();
   }
 }
 

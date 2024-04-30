@@ -1,14 +1,24 @@
 using UnityEngine;
 
 
+public enum EnemyStates
+{
+  IDLE,
+  MOVING,
+  ATTACK
+}
+
+
 public abstract class BaseEnemyBehaviour : ScriptableObject
 {
+  [SerializeField] protected EnemyStates _stateEnemy;
   protected EnemyController _enemy;
-  protected BehaviourState _state = BehaviourState.DISABLE;
+  protected BehaviourState _behaviourState = BehaviourState.DISABLE;
 
   [SerializeField] protected BaseEnemyBehaviour NextBehaviourNode;
 
-  public BehaviourState State => _state;
+  public BehaviourState BehaviourState => _behaviourState;
+  public EnemyStates EnemyState => _stateEnemy;
 
   public void Initialize(EnemyController enemy)
   {
@@ -24,7 +34,7 @@ public abstract class BaseEnemyBehaviour : ScriptableObject
 
   public void SetState(BehaviourState newState)
   {
-    _state = newState;
+    _behaviourState = newState;
   }
 
   public void SwitchState()

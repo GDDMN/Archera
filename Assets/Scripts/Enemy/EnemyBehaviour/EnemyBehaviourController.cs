@@ -22,7 +22,7 @@ public class EnemyBehaviourController : ScriptableObject
     foreach(var beh in _behaviourList)
       beh.Initialize(enemy);
 
-    _activeState = _behaviourList.Find(beh => beh.State == BehaviourState.DISABLE);
+    _activeState = _behaviourList.Find(beh => beh.BehaviourState == BehaviourState.DISABLE);
     _activeState.Start();
   }
 
@@ -37,9 +37,7 @@ public class EnemyBehaviourController : ScriptableObject
 
   private void SwitchState()
   {
-
-
-    _activeState = _behaviourList.Find(beh => beh.State == BehaviourState.DISABLE);
+    _activeState = _behaviourList.Find(beh => beh.BehaviourState == BehaviourState.DISABLE);
     _activeState.Start();
   }
 }

@@ -6,13 +6,15 @@ public class IdleBehaviour : BaseEnemyBehaviour
 {
   public override void Exit()
   {
+    _stateEnemy = EnemyStates.IDLE;
     SetState(BehaviourState.COMPLETE);
+    NextBehaviourNode.SetState(BehaviourState.DISABLE);
   }
 
   public override void Start()
   {
     SetState(BehaviourState.ACTIVE);
-    _enemy.Animator.SetInteger("State", 0);
+    _enemy.Animator.SetInteger("State", (int)_stateEnemy);
   }
 
   public override BehaviourState Tick()
@@ -27,7 +29,7 @@ public class IdleBehaviour : BaseEnemyBehaviour
         SwitchState();
     }
 
-    return _state;
+    return _behaviourState;
   }
 }
 
