@@ -22,6 +22,7 @@ public class WalkEnemyBehaviour : BaseEnemyBehaviour
   public override void Exit()
   {
     SetState(BehaviourState.COMPLETE);
+    NextBehaviourNode.SetState(BehaviourState.DISABLE);
   }
 
   private void FindWayToPlayer()
@@ -33,6 +34,12 @@ public class WalkEnemyBehaviour : BaseEnemyBehaviour
     }
 
     _enemy.Agent.SetDestination(_enemy.Player.Transform.position);
+
+    Vector3 distantion = _enemy.transform.position - _enemy.Player.Transform.position;
+    float longDist = distantion.magnitude;
+
+    if (longDist <= 1f)
+      SwitchState();
   }
 }
 

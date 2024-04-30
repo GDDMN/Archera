@@ -1383,7 +1383,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1498022790}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ee231876f648b24bb57ad14a9ea1918, type: 3}
+  m_Script: {fileID: 11500000, guid: af0d9bd47074feb4790314cdaefa7f98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 1154302565}
@@ -1503,7 +1503,7 @@ PrefabInstance:
     - target: {fileID: 871323514399551350, guid: a73da700c35d4e84b8afae700a4e63af, type: 3}
       propertyPath: _allEnemies.Array.data[0]
       value: 
-      objectReference: {fileID: 1498022795}
+      objectReference: {fileID: 0}
     - target: {fileID: 2918541966435344858, guid: a73da700c35d4e84b8afae700a4e63af, type: 3}
       propertyPath: m_Name
       value: Player
