@@ -10,6 +10,8 @@ public class WalkEnemyBehaviour : BaseEnemyBehaviour
     _stateEnemy = EnemyStates.MOVING;
     SetState(BehaviourState.ACTIVE);
     _enemy.Animator.SetInteger("State", (int)_stateEnemy);
+
+    _enemy.Agent.isStopped = false;
   }
 
   public override BehaviourState Tick()

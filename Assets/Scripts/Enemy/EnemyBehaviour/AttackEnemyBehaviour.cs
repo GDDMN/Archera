@@ -14,6 +14,8 @@ public class AttackEnemyBehaviour : BaseEnemyBehaviour
     _stateEnemy = EnemyStates.ATTACK;
     SetState(BehaviourState.ACTIVE);
     _enemy.Animator.SetInteger("State", (int)_stateEnemy);
+
+    _enemy.Agent.isStopped = true;
   }
 
   public override BehaviourState Tick()

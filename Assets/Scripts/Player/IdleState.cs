@@ -11,7 +11,6 @@ public class IdleState : PlayerStates
   public override void Start(PlayerMoveController playerController)
   {
     Debug.Log("Set Idle State");
-
     _controller = playerController;
   }
 

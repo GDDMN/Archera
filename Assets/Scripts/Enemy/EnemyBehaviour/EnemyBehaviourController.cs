@@ -37,7 +37,7 @@ public class EnemyBehaviourController : ScriptableObject
 
   private void SwitchState()
   {
-    _activeState = _behaviourList.Find(beh => beh.BehaviourState == BehaviourState.DISABLE);
+    _activeState = _activeState.NextBehaviourNode;
     _activeState.Start();
   }
 }

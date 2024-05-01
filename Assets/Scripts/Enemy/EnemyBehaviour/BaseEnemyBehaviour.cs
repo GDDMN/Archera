@@ -12,10 +12,10 @@ public enum EnemyStates
 public abstract class BaseEnemyBehaviour : ScriptableObject
 {
   [SerializeField] protected EnemyStates _stateEnemy;
-  protected EnemyController _enemy;
-  protected BehaviourState _behaviourState = BehaviourState.DISABLE;
+  [SerializeField] protected BehaviourState _behaviourState = BehaviourState.DISABLE;
+  [SerializeField] public BaseEnemyBehaviour NextBehaviourNode;
 
-  [SerializeField] protected BaseEnemyBehaviour NextBehaviourNode;
+  protected EnemyController _enemy;
 
   public BehaviourState BehaviourState => _behaviourState;
   public EnemyStates EnemyState => _stateEnemy;
