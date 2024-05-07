@@ -2,13 +2,13 @@
 
 public class RunState : PlayerStates
 {
-  private PlayerMoveController _controller;
+  private PlayerController _controller;
 
   public override void Exit()
   {
   }
 
-  public override void Start(PlayerMoveController playerController)
+  public override void Start(PlayerController playerController)
   {
     Debug.Log("Set Run State");
 

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [Serializable]
 public struct PlayerData
 {
@@ -13,7 +12,7 @@ public struct PlayerData
 }
 
 
-public class PlayerMoveController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IHurtable
 {
   private Controls inputControls;
   private PlayerStates ActiveState;
@@ -39,6 +38,9 @@ public class PlayerMoveController : MonoBehaviour
   public AnimatorEventInvoker AnimatorEventInvoker => _animatorEventInvoker;
   public Projectile Projectile => _projectile;
 
+
+  public event Action OnGetHurt;
+  public event Action OnDeath;
 
   private void Awake()
   {
@@ -101,5 +103,20 @@ public class PlayerMoveController : MonoBehaviour
   public void SetEnemy(EnemyController enemy)
   {
     _enemy = enemy;
+  }
+
+  public void Hurt(int damage)
+  {
+    _playerData.health -= damage;
+    OnGetHurt.Invoke();
+
+    if (_playerData.health <= 0)
+      Death();
+
+  }
+
+  public void Death()
+  {
+    OnDeath.Invoke();
   }
 }

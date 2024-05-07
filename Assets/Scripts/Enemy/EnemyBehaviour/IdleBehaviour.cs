@@ -25,7 +25,7 @@ public class IdleBehaviour : BaseEnemyBehaviour
 
     if (Physics.Raycast(ray, out hit))
     {
-      if (hit.collider.gameObject.GetComponent<PlayerMoveController>() != null)
+      if (hit.collider.gameObject.GetComponent<PlayerController>() != null)
         SwitchState();
     }
 
