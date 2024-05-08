@@ -29,4 +29,14 @@ public class Projectile : MonoBehaviour
   {
     transform.position += _direction * (_data.Speed * Time.deltaTime);
   }
+
+  private void OnCollisionEnter(Collision collision)
+  {
+    var hurtable = collision.collider.GetComponent<IHurtable>();
+
+    if (hurtable != null)
+      hurtable.Hurt(_data.Damage);
+
+    Destroy(this.gameObject);
+  }
 }

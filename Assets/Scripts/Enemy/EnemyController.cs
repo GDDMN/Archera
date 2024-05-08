@@ -1,12 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
-public class EnemyController : MonoBehaviour
+[Serializable]
+public struct EnemyData
+{
+  public int health;
+  public float speed;
+}
+
+public class EnemyController : MonoBehaviour, IHurtable
 {
   protected NavMeshAgent _navAgent;
 
+  [SerializeField]protected EnemyData _data;
   [SerializeField] protected Animator _animator;
   [SerializeField] protected Transform _attackPoint;
   [SerializeField] protected PlayerController _player;
@@ -17,6 +24,8 @@ public class EnemyController : MonoBehaviour
   public Animator Animator => _animator;
   public NavMeshAgent Agent => _navAgent;
 
+  public event Action OnGetHurt;
+  public event Action OnDeath;
 
   private void Awake()
   {
@@ -29,5 +38,18 @@ public class EnemyController : MonoBehaviour
     _controller.Tick();
   }
 
+  public void Hurt(int damage)
+  {
+    _data.health -= damage;
+    OnGetHurt.Invoke();
 
+    if (_data.health <= 0)
+      Death();
+  }
+
+  public void Death()
+  {
+    OnDeath.Invoke();
+    Destroy(this.gameObject);
+  }
 }

@@ -32,7 +32,6 @@ public class EnemyBehaviourController : ScriptableObject
 
     if (StetaActiveBeh == BehaviourState.COMPLETE)
       SwitchState();
-
   }
 
   private void SwitchState()
