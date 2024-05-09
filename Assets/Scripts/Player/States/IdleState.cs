@@ -2,16 +2,19 @@
 using UnityEngine;
 public class IdleState : PlayerStates
 {
-  private PlayerController _controller;
+
+  public IdleState(PlayerController controller) : base(controller) 
+  {
+
+  }
 
   public override void Exit()
   {
   }
 
-  public override void Start(PlayerController playerController)
+  public override void Start()
   {
     Debug.Log("Set Idle State");
-    _controller = playerController;
   }
 
   public override void Update()

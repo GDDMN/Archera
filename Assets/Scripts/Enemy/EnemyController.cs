@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour, IHurtable
   public NavMeshAgent Agent => _navAgent;
 
   public event Action OnGetHurt;
-  public event Action OnDeath;
+  public event Action<EnemyController> OnDeath;
 
   private void Awake()
   {
@@ -41,7 +41,7 @@ public class EnemyController : MonoBehaviour, IHurtable
   public void Hurt(int damage)
   {
     _data.health -= damage;
-    OnGetHurt.Invoke();
+    OnGetHurt?.Invoke();
 
     if (_data.health <= 0)
       Death();
@@ -49,7 +49,7 @@ public class EnemyController : MonoBehaviour, IHurtable
 
   public void Death()
   {
-    OnDeath.Invoke();
+    OnDeath?.Invoke(this);
     Destroy(this.gameObject);
   }
 }

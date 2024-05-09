@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: WalkEnemyBehaviour
   m_EditorClassIdentifier: 
   _stateEnemy: 1
+  _behaviourState: 0
   NextBehaviourNode: {fileID: 11400000, guid: 477e9f2949596ac46a6af7b0559c7762, type: 2}

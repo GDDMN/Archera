@@ -3,63 +3,54 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public struct PlayerData
-{
-  public int health;
-  public float speed;
-  public States playerState;
-  public Vector2 moveDirection;
-}
 
 
-public class PlayerController : MonoBehaviour, IHurtable
+
+public class PlayerController : MonoBehaviour
 {
   private Controls inputControls;
   private PlayerStates ActiveState;
-  private PlayerStates[] AllStates = new PlayerStates[3];
+  private Dictionary<States, PlayerStates> AllStates;
 
   [SerializeField] private List<EnemyController> _allEnemies = new List<EnemyController>();
-  [SerializeField] private EnemyController _enemy;
+  [SerializeField] private PlayerActor _actor;
 
-
-  [SerializeField] private PlayerData _playerData;
-  [SerializeField] private Animator _animationController;
-  [SerializeField] private AnimatorEventInvoker _animatorEventInvoker;
- 
-  [SerializeField] private Transform _projectileSpawnPoint;
-  [SerializeField] private Projectile _projectile;
+  [SerializeField] public EnemyController Enemy { get; private set; }
 
   public Transform Transform => gameObject.transform;
-  public float Speed => _playerData.speed;
-  public Vector2 Direction => _playerData.moveDirection;
-  public EnemyController Enemy => _enemy;
   public List<EnemyController> AllEnemies => _allEnemies;
-  public Transform ProjectileSpawnPoint => _projectileSpawnPoint;
-  public AnimatorEventInvoker AnimatorEventInvoker => _animatorEventInvoker;
-  public Projectile Projectile => _projectile;
+  public PlayerActor Actor => _actor;
 
-
-  public event Action OnGetHurt;
-  public event Action OnDeath;
 
   private void Awake()
   {
     inputControls = new Controls();
     InitializeStates();
-    ActiveState.Start(this);
+    SetState(States.IDLE);
   }
 
   private void InitializeStates()
   {
-    IdleState idleState = new IdleState();
-    RunState runState = new RunState();
-    FightState fightState = new FightState();
+    AllStates = new Dictionary<States, PlayerStates>()
+    {
+      [States.IDLE] = new IdleState(this),
+      [States.RUN] = new RunState(this),
+      [States.FIGHT] = new FightState(this)
+    };
 
-    AllStates[(int)States.IDLE] = idleState;
-    AllStates[(int)States.RUN] = runState;
-    AllStates[(int)States.FIGHT] = fightState;
+    foreach (var enemy in AllEnemies)
+      enemy.OnDeath += RemoveEnemyFromList;
+  }
 
-    SetState((int)States.IDLE);
+  public void SetState(States state)
+  {
+    if (AllStates.TryGetValue(state, out PlayerStates newState))
+    {      
+      ActiveState?.Exit();
+      ActiveState = newState;
+      ActiveState.Start();
+      Actor.SetPlayerState(state);
+    }
   }
 
   private void OnEnable()
@@ -80,43 +71,19 @@ public class PlayerController : MonoBehaviour, IHurtable
 
   private void Update()
   {
-    _playerData.moveDirection = inputControls.Player.Move.ReadValue<Vector2>();
+    Vector2 direction = inputControls.Player.Move.ReadValue<Vector2>();
+    Actor.SetMoveDirection(direction);
     ActiveState.Update();
-    SetAnimation();
-  }
-
-  private void SetAnimation()
-  {
-    _animationController.SetInteger("AnimType", (int)_playerData.playerState);
-  }
-
-  public void SetState(States state)
-  {
-    if(ActiveState != null)
-      ActiveState.Exit();
-
-    _playerData.playerState = state;
-    ActiveState = AllStates[(int)_playerData.playerState];
-    ActiveState.Start(this);
   }
 
   public void SetEnemy(EnemyController enemy)
   {
-    _enemy = enemy;
+    Enemy = enemy;
   }
 
-  public void Hurt(int damage)
+  private void RemoveEnemyFromList(EnemyController enemy)
   {
-    _playerData.health -= damage;
-    OnGetHurt.Invoke();
-
-    if (_playerData.health <= 0)
-      Death();
-
-  }
-
-  public void Death()
-  {
-    OnDeath.Invoke();
+    AllEnemies.Remove(enemy);
+    SetEnemy(null);
   }
 }

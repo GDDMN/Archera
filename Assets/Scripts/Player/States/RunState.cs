@@ -2,28 +2,31 @@
 
 public class RunState : PlayerStates
 {
-  private PlayerController _controller;
+  public RunState(PlayerController controller): base(controller)
+  {
+
+  }
 
   public override void Exit()
   {
   }
 
-  public override void Start(PlayerController playerController)
+  public override void Start()
   {
     Debug.Log("Set Run State");
-
-    _controller = playerController;
   }
 
   public override void Update()
   {
-    Move(_controller.Direction);
-    Rotate(_controller.Direction);
+    Vector2 direction = _controller.Actor.MoveDirection;
+    
+    Move(direction);
+    Rotate(direction);
   }
 
   private void Move(Vector2 direction)
   {
-    float scaledMoveSpeed = _controller.Speed * Time.deltaTime;
+    float scaledMoveSpeed = _controller.Actor.Speed * Time.deltaTime;
     Vector3 moveDirection = new Vector3(direction.x, 0, direction.y);
     _controller.Transform.position += moveDirection * scaledMoveSpeed;
   }

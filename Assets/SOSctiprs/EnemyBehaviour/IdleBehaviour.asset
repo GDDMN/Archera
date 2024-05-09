@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e466111ebfeaa48b58e49fc8f44268, type: 3}
   m_Name: IdleBehaviour
   m_EditorClassIdentifier: 
+  _stateEnemy: 0
+  _behaviourState: 0
   NextBehaviourNode: {fileID: 11400000, guid: 1b556ffd843959147ba1eedca60575d4, type: 2}

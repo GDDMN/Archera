@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6154596420988600370}
+  - component: {fileID: 821844025088417946}
   - component: {fileID: 8214190494861921945}
   - component: {fileID: 2365180210118666367}
   - component: {fileID: 275848346272604294}
@@ -33,8 +34,29 @@ Transform:
   m_Children:
   - {fileID: 5972685337544057618}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &821844025088417946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6154596420988600373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34a215af9f75c2a4993b9a62a5c68a88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerData:
+    health: 460
+    speed: 3
+    playerState: 0
+    moveDirection: {x: 0, y: 0}
+  _animationController: {fileID: 289094042501953896}
+  _animatorEventInvoker: {fileID: 9072847394218687071}
+  _projectileSpawnPoint: {fileID: 5568029379989210160}
+  _projectile: {fileID: 3096153301888679806, guid: 2239e35f9df80f141812a6a80b89aa76, type: 3}
 --- !u!114 &8214190494861921945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,16 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _allEnemies:
   - {fileID: 0}
-  _enemy: {fileID: 0}
-  _playerData:
-    health: 640
-    speed: 4
-    playerState: 0
-    moveDirection: {x: 0, y: 0}
-  _animationController: {fileID: 289094042501953896}
-  _animatorEventInvoker: {fileID: 9072847394218687071}
-  _projectileSpawnPoint: {fileID: 5568029379989210160}
-  _projectile: {fileID: 3096153301888679806, guid: 2239e35f9df80f141812a6a80b89aa76, type: 3}
+  _actor: {fileID: 821844025088417946}
 --- !u!54 &2365180210118666367
 Rigidbody:
   m_ObjectHideFlags: 0
