@@ -11,9 +11,9 @@ public struct EnemyData
 
 public class EnemyController : MonoBehaviour, IHurtable
 {
-  protected NavMeshAgent _navAgent;
+  [SerializeField] protected NavMeshAgent _navAgent;
 
-  [SerializeField]protected EnemyData _data;
+  [SerializeField] protected EnemyData _data;
   [SerializeField] protected Animator _animator;
   [SerializeField] protected Transform _attackPoint;
   [SerializeField] protected PlayerController _player;
@@ -29,7 +29,8 @@ public class EnemyController : MonoBehaviour, IHurtable
 
   private void Awake()
   {
-    _navAgent = GetComponent<NavMeshAgent>();
+    //_navAgent = GetComponent<NavMeshAgent>();
+    _controller = _controller.Clone();
     _controller.Initialize(this);
   }
 

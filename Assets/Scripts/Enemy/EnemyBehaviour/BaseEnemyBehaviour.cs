@@ -15,7 +15,7 @@ public abstract class BaseEnemyBehaviour : ScriptableObject
   [SerializeField] protected BehaviourState _behaviourState = BehaviourState.DISABLE;
   [SerializeField] public BaseEnemyBehaviour NextBehaviourNode;
 
-  protected EnemyController _enemy;
+  public EnemyController _enemy;
 
   public BehaviourState BehaviourState => _behaviourState;
   public EnemyStates EnemyState => _stateEnemy;
@@ -40,6 +40,11 @@ public abstract class BaseEnemyBehaviour : ScriptableObject
   public void SwitchState()
   {
     Exit();
+  }
+
+  public virtual BaseEnemyBehaviour Clone()
+  {
+    return Instantiate(this);
   }
 }
 

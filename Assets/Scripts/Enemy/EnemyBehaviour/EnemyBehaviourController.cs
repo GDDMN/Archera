@@ -17,10 +17,14 @@ public class EnemyBehaviourController : ScriptableObject
   private BaseEnemyBehaviour _activeState;
 
 
+  public List<BaseEnemyBehaviour> Behaviours => _behaviourList; 
+
   public void Initialize(EnemyController enemy)
   {
     foreach(var beh in _behaviourList)
+    {
       beh.Initialize(enemy);
+    }
 
     _activeState = _behaviourList.Find(beh => beh.BehaviourState == BehaviourState.DISABLE);
     _activeState.Start();
@@ -38,5 +42,16 @@ public class EnemyBehaviourController : ScriptableObject
   {
     _activeState = _activeState.NextBehaviourNode;
     _activeState.Start();
+  }
+
+  public EnemyBehaviourController Clone()
+  {
+    EnemyBehaviourController controller = Instantiate(this);
+    controller.Behaviours.Clear();
+
+    foreach (var node in this.Behaviours)
+      controller.Behaviours.Add(node.Clone());
+
+    return controller;
   }
 }
