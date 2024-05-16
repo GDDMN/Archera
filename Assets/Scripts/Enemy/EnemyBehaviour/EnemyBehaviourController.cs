@@ -1,14 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public enum BehaviourState
 {
   DISABLE,
   ACTIVE,
   COMPLETE
 }
-
 
 [CreateAssetMenu(fileName = "EnemyBehaviourGroup", menuName = "EnemyBehaviour/BehaviourGroup")]
 public class EnemyBehaviourController : ScriptableObject
@@ -40,7 +38,7 @@ public class EnemyBehaviourController : ScriptableObject
 
   private void SwitchState()
   {
-    _activeState = _activeState.NextBehaviourNode;
+    _activeState = _behaviourList.Find(beh => beh.EnemyState == _activeState.NextEnemyState);
     _activeState.Start();
   }
 

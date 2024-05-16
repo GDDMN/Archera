@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stateEnemy: 2
   _behaviourState: 0
-  NextBehaviourNode: {fileID: 11400000, guid: 8d078d45f5c7b0e4889327c131d7875b, type: 2}
+  _nextEnemyState: 1
+  _enemy: {fileID: 0}

@@ -13,12 +13,13 @@ public abstract class BaseEnemyBehaviour : ScriptableObject
 {
   [SerializeField] protected EnemyStates _stateEnemy;
   [SerializeField] protected BehaviourState _behaviourState = BehaviourState.DISABLE;
-  [SerializeField] public BaseEnemyBehaviour NextBehaviourNode;
+  [SerializeField] protected EnemyStates _nextEnemyState;
 
   public EnemyController _enemy;
 
   public BehaviourState BehaviourState => _behaviourState;
   public EnemyStates EnemyState => _stateEnemy;
+  public EnemyStates NextEnemyState => _nextEnemyState;
 
   public void Initialize(EnemyController enemy)
   {

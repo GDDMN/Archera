@@ -6,7 +6,7 @@ public class AttackEnemyBehaviour : BaseEnemyBehaviour
   public override void Exit()
   {
     SetState(BehaviourState.COMPLETE);
-    NextBehaviourNode.SetState(BehaviourState.DISABLE);
+    //NextBehaviourNode.SetState(BehaviourState.DISABLE);
   }
 
   public override void Start()

@@ -23,7 +23,7 @@ public class WalkEnemyBehaviour : BaseEnemyBehaviour
   public override void Exit()
   {
     SetState(BehaviourState.COMPLETE);
-    NextBehaviourNode.SetState(BehaviourState.DISABLE);
+    //NextBehaviourNode.SetState(BehaviourState.DISABLE);
   }
 
   private void FindWayToPlayer()
